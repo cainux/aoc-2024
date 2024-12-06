@@ -1,26 +1,26 @@
 local utils = {}
 
 function utils.loadInput(filename)
-	local file = io.open(filename, "r")
+    local file = io.open(filename, "r")
 
-	if not file then
-		print("Error opening file")
-		os.exit(1)
-	end
+    if not file then
+        print "Error opening file"
+        os.exit(1)
+    end
 
-	local left = {}
-	local right = {}
+    local left = {}
+    local right = {}
 
-	for line in file:lines() do
-		local l, r = line:match("(%d+)%s+(%d+)")
-		l, r = tonumber(l), tonumber(r)
-		table.insert(left, l)
-		table.insert(right, r)
-	end
+    for line in file:lines() do
+        local l, r = line:match "(%d+)%s+(%d+)"
+        l, r = tonumber(l), tonumber(r)
+        table.insert(left, l)
+        table.insert(right, r)
+    end
 
-	file:close()
+    file:close()
 
-	return left, right
+    return left, right
 end
 
 return utils
