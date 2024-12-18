@@ -51,14 +51,7 @@ local function score(grid, plots)
             { x = plot.x + 1, y = plot.y },
         }
         for _, p in ipairs(nesw) do
-            if p.x < 1 or p.x > #grid[1] or p.y < 1 or p.y > #grid then
-            else
-                local c = char_at(grid, p.x, p.y)
-                if c == plot.plot then
-                    table.insert(region, { x = p.x, y = p.y, plot = c })
-                    print(p.x .. p.y, c)
-                end
-            end
+
         end
         table.insert(regions, region)
     end
