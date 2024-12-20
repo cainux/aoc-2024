@@ -74,10 +74,10 @@ local function score_grid(g, plots)
 
         while #queue > 0 do
             local p = table.remove(queue, 1)
+            table.insert(region, p) -- if it is in the queue then it belongs to the region
             local surr = surrounding_plots(g, p.x, p.y)
             for _, s in ipairs(surr) do
                 if is_in(plots, s) and s.plot == p.plot then
-                    table.insert(region, s)
                     table.insert(queue, s)
                     for i, q in ipairs(plots) do
                         if s.x == q.x and s.y == q.y then
