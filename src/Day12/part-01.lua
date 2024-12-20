@@ -64,18 +64,17 @@ local function is_in(plots, plot)
     return false
 end
 
-local function score_grid(grid, plots)
+local function score_grid(g, plots)
     local regions = {}
 
     while #plots > 0 do
         local region = {}
         local queue = {}
-        local curr = table.remove(plots, 1)
-        table.insert(queue, curr)
+        table.insert(queue, table.remove(plots, 1))
 
         while #queue > 0 do
             local p = table.remove(queue, 1)
-            local surr = surrounding_plots(grid, p.x, p.y)
+            local surr = surrounding_plots(g, p.x, p.y)
             for _, s in ipairs(surr) do
                 if is_in(plots, s) and s.plot == p.plot then
                     table.insert(region, s)
@@ -94,6 +93,10 @@ local function score_grid(grid, plots)
     end
 
     print(#regions)
+
+    for i, r in ipairs(regions) do
+        print("Region " .. i .. " has " .. #r .. " plots")
+    end
 end
 
 -- solve
