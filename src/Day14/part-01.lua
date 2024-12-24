@@ -1,4 +1,4 @@
-local file = io.open("input-test.txt", "r")
+local file = io.open("single.txt", "r")
 
 if not file then
     print "File not found"
@@ -25,9 +25,9 @@ local function print_grid(robots)
         grid[robot.py][robot.px] = "#"
     end
 
-    for y = 0, max_y do
+    for y = 0, max_y - 1 do
         local line = grid[y] or {}
-        for x = 0, max_x do
+        for x = 0, max_x - 1 do
             io.write(line[x] or ".")
         end
         io.write "\n"
