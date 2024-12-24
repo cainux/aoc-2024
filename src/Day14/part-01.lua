@@ -1,4 +1,4 @@
-local file = io.open("single.txt", "r")
+local file = io.open("input-test.txt", "r")
 
 if not file then
     print "File not found"
@@ -41,12 +41,12 @@ local function move(robots)
         robot.px = robot.px + robot.vx
         robot.py = robot.py + robot.vy
 
-        -- If the robot has moved out of max_x or max_y then teleport
+        -- If the robot has moved out of the grid bounday then teleport
         while robot.px < 0 do
             robot.px = robot.px + max_x
         end
 
-        while robot.px > max_x do
+        while robot.px >= max_x do
             robot.px = robot.px - max_x
         end
 
@@ -54,7 +54,7 @@ local function move(robots)
             robot.py = robot.py + max_y
         end
 
-        while robot.py > max_y do
+        while robot.py >= max_y do
             robot.py = robot.py - max_y
         end
     end
@@ -64,10 +64,12 @@ end
 local robots = load(file:lines())
 file:close()
 
-print_grid(robots)
+-- print_grid(robots)
 
-for i = 1, 5 do
+for i = 1, 100 do
     move(robots)
-    print("After " .. i .. " seconds:")
-    print_grid(robots)
+    -- print("After " .. i .. " seconds:")
+    -- print_grid(robots)
 end
+
+print_grid(robots)
