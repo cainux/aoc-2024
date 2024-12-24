@@ -6,6 +6,14 @@ if not file then
 end
 
 local max_x, max_y = 11, 7
+local q_width, q_height = (max_x // 2) - 1, (max_y // 2) - 1
+-- ideally 4 and 2
+local tl = { q = "tl", x1 = 0, y1 = 0, x2 = q_width, y2 = q_height }
+local tr = { q = "tr", x1 = (q_width - 1) * 2, y1 = 0, x2 = max_x - 1, y2 = q_height }
+local bl = { q = "bl", x1 = 0, y1 = q_height * 2, x2 = q_width, y2 = max_y - 1 }
+local br = { q = "br", x1 = (q_width - 1) * 2, y1 = q_height * 2, x2 = max_x - 1, y2 = max_y - 1 }
+
+local quadrants = { tl, tr, bl, br }
 
 local function load(lines)
     local robots = {}
@@ -60,6 +68,9 @@ local function move(robots)
     end
 end
 
+local function within(robot, x1, y1, x2, y2) return robot.px >= x1 and robot.px <= x2 and robot.py >= y1 and
+    robot.py <= y2 end
+
 -- Solve
 local robots = load(file:lines())
 file:close()
@@ -72,4 +83,24 @@ for i = 1, 100 do
     -- print_grid(robots)
 end
 
-print_grid(robots)
+-- print_grid(robots)
+local counts = {}
+
+for _, q in ipairs(quadrants) do
+    local count = 0
+    for _, robot in ipairs(robots) do
+        if within(robot, q.x1, q.y1, q.x2, q.y2) then
+            count = count + 1
+        end
+    end
+    table.insert(counts, count)
+    print(q.q .. " has " .. count .. " robots")
+end
+
+local result = 1
+
+for _, count in ipairs(counts) do
+    result = result * count
+end
+
+print("Result: " .. result)
