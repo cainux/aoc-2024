@@ -1,17 +1,19 @@
-local file = io.open("input-test.txt", "r")
+local file = io.open("input.txt", "r")
+-- local max_x, max_y = 11, 7
+local max_x, max_y = 101, 103
 
 if not file then
     print "File not found"
     os.exit()
 end
 
-local max_x, max_y = 11, 7
-local q_width, q_height = (max_x // 2) - 1, (max_y // 2) - 1
--- ideally 4 and 2
-local tl = { q = "tl", x1 = 0, y1 = 0, x2 = q_width, y2 = q_height }
-local tr = { q = "tr", x1 = (q_width - 1) * 2, y1 = 0, x2 = max_x - 1, y2 = q_height }
-local bl = { q = "bl", x1 = 0, y1 = q_height * 2, x2 = q_width, y2 = max_y - 1 }
-local br = { q = "br", x1 = (q_width - 1) * 2, y1 = q_height * 2, x2 = max_x - 1, y2 = max_y - 1 }
+local mid_x = (max_x - 1) // 2
+local mid_y = (max_y - 1) // 2
+
+local tl = { q = "tl", x1 = 0, y1 = 0, x2 = mid_x - 1, y2 = mid_y - 1 }
+local tr = { q = "tr", x1 = mid_x + 1, y1 = 0, x2 = max_x - 1, y2 = mid_y - 1 }
+local bl = { q = "bl", x1 = 0, y1 = mid_y + 1, x2 = mid_x - 1, y2 = max_y - 1 }
+local br = { q = "br", x1 = mid_x + 1, y1 = mid_y + 1, x2 = max_x - 1, y2 = max_y - 1 }
 
 local quadrants = { tl, tr, bl, br }
 
@@ -83,10 +85,11 @@ for i = 1, 100 do
     -- print_grid(robots)
 end
 
--- print_grid(robots)
+print_grid(robots)
 local counts = {}
 
 for _, q in ipairs(quadrants) do
+    print("Checking " .. q.q .. " " .. q.x1 .. "," .. q.y1 .. " " .. q.x2 .. "," .. q.y2)
     local count = 0
     for _, robot in ipairs(robots) do
         if within(robot, q.x1, q.y1, q.x2, q.y2) then
