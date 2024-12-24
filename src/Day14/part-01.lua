@@ -7,16 +7,6 @@ end
 
 local max_x, max_y = 11, 7
 
-local function load(lines)
-    local robots = {}
-    for line in lines do
-        local px, py, vx, vy = line:match "p=(%d+),(%d+) v=([-]?%d+),([-]?%d+)"
-        -- print("p=" .. px .. "," .. py .. " v=" .. vx .. "," .. vy)
-        table.insert(robots, { px = tonumber(px), py = tonumber(py), vx = tonumber(vx), vy = tonumber(vy) })
-    end
-    return robots
-end
-
 local function print_grid(robots)
     local grid = {}
 
@@ -32,6 +22,16 @@ local function print_grid(robots)
         end
         io.write "\n"
     end
+end
+
+local function load(lines)
+    local robots = {}
+    for line in lines do
+        local px, py, vx, vy = line:match "p=(%d+),(%d+) v=([-]?%d+),([-]?%d+)"
+        -- print("p=" .. px .. "," .. py .. " v=" .. vx .. "," .. vy)
+        table.insert(robots, { px = tonumber(px), py = tonumber(py), vx = tonumber(vx), vy = tonumber(vy) })
+    end
+    return robots
 end
 
 local robots = load(file:lines())
