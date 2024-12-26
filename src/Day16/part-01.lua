@@ -28,7 +28,7 @@ local function load(input)
         for char in line:gmatch "." do
             table.insert(grid[#grid], char)
             if char == "S" then
-                s = { x = x, y = y }
+                s = { facing = "e", x = x, y = y }
             elseif char == "E" then
                 e = { x = x, y = y }
             end
@@ -41,4 +41,4 @@ end
 
 local grid, s, e = load(content)
 dump(grid)
-print(s.x, s.y, e.x, e.y)
+print(s.facing, s.x, s.y, e.x, e.y)
