@@ -39,6 +39,41 @@ local function load(input)
     return grid, s, e
 end
 
+local function ahead(grid, current)
+    local x, y = current.x, current.y
+    if current.facing == "n" then
+        y = y - 1
+    elseif current.facing == "s" then
+        y = y + 1
+    elseif current.facing == "e" then
+        x = x + 1
+    elseif current.facing == "w" then
+        x = x - 1
+    end
+    return grid[y][x]
+end
+
+local function search(grid, current, history)
+    local moves = {
+        "cw",
+        "ccw",
+        "f",
+    }
+
+    local next = ahead(grid, current)
+
+    if next == "E" then
+        return path
+    end
+
+    if next == "#" then
+        return false
+    end
+
+
+end
+
+-- Solve
 local grid, s, e = load(content)
 dump(grid)
 print(s.facing, s.x, s.y, e.x, e.y)
